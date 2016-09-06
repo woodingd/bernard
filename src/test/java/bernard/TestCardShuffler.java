@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class TestCardShuffler {
 	
-	List<String> cards;
+	String[] cards;
 
 	@Before
 	public void setUp() throws Exception {
