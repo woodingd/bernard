@@ -9,17 +9,19 @@ public class CardShuffler {
 	private static final String[] CARDS = {"K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2", "A"};
 	private static final char[] SUITS = {'S', 'C', 'D', 'H'};
 
-	public static final List<String> setupCards() {
-		List<String> cards = new ArrayList<String>();
+	public static final String[] setupCards() {
+		String[] cards = new String[52];
+		int counter = 0;
 		for (char c : SUITS) {
 			for (String s : CARDS) {
-				cards.add(s + c);
+				cards[counter] = s + c;
+				counter++;
 			}
 		}
 		return cards;
 	}
 	
-	public static final String[] shuffle(List<String> cards) {
+	public static final String[] shuffle(String[] cards) {
 		String result[] = new String[52];
 		for (String card : cards) {
 			Random random = new Random();
@@ -41,13 +43,24 @@ public class CardShuffler {
 		}
 	}
 	
-	public static void main(String[] args) {
-		List<String> cards = setupCards();
-		String s = "";
-		for (String card : shuffle(cards)) {
-			s += card + " | ";
+	public static final String[] shuffleForN(String[] cards, int n) {
+		String s = "| ";
+		if (n > 0) {
+			cards = shuffle(cards);
+			for (String card : cards) {
+				s += card + " | ";
+			}
+			System.out.println(s);
+			return shuffleForN(cards, n-1);
 		}
-		System.out.println(s);
+		return cards;
+	}
+	
+	public static void main(String[] args) {
+		String[] cards = setupCards();
+		Random random = new Random();
+		int number = 7 + random.nextInt(10);
+		shuffleForN(cards, number);
 	}
 
 }
