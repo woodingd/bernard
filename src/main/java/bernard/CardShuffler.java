@@ -1,25 +1,26 @@
 package bernard;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+import java.sql.*;
 
 public class CardShuffler extends Thread {
 	
 	private static final String[] CARDS = {"K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2", "A"};
 	private static final char[] SUITS = {'S', 'C', 'D', 'H'};
 
-	public static final List<String> setupCards() {
-		List<String> cards = new ArrayList<String>();
+	public static final String[] setupCards() {
+		String[] cards = new String[52];
+		int index = 0;
 		for (char c : SUITS) {
 			for (String s : CARDS) {
-				cards.add(s + c);
+				cards[index] = c + s;
+				index++;
 			}
 		}
 		return cards;
 	}
 	
-	public static final String[] shuffle(List<String> cards) {
+	public static final String[] shuffle(String[] cards) {
 		String result[] = new String[52];
 		Random random = new Random();
 		for (String card : cards) {
@@ -56,7 +57,7 @@ public class CardShuffler extends Thread {
 		int count = 0;
 		while (true) {
 			count++;
-			List<String> cards = setupCards();
+			String[] cards = setupCards();
 			String s = "| ";
 			for (String card : shuffle(cards)) {
 				s += card + " | ";
