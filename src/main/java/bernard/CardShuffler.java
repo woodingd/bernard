@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class CardShuffler {
+public class CardShuffler extends Thread {
 	
 	private static final String[] CARDS = {"K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2", "A"};
 	private static final char[] SUITS = {'S', 'C', 'D', 'H'};
@@ -42,12 +42,27 @@ public class CardShuffler {
 	}
 	
 	public static void main(String[] args) {
-		List<String> cards = setupCards();
-		String s = "| ";
-		for (String card : shuffle(cards)) {
-			s += card + " | ";
+		Thread shuffle1 = new CardShuffler();
+		Thread shuffle2 = new CardShuffler();
+		Thread shuffle3 = new CardShuffler();
+		
+		shuffle1.start();
+		shuffle2.start();
+		shuffle3.start();
+	}
+	
+	public void run() {
+		System.out.println(this.getName() + ": Started.");
+		int count = 0;
+		while (true) {
+			count++;
+			List<String> cards = setupCards();
+			String s = "| ";
+			for (String card : shuffle(cards)) {
+				s += card + " | ";
+			}
+			System.out.println(this.getName() + "-" + count + ": " + s);
 		}
-		System.out.println(s);
 	}
 
 }
