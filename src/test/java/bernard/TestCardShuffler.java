@@ -14,7 +14,7 @@ public class TestCardShuffler {
 	}
 
 	@Test
-	public void testNoNullsInResult() {
+	public void testShuffle_NoNullsInResult() {
 		String[] result = CardShuffler.shuffle(cards);
 		for (String card : result) {
 			assertNotEquals(card, null);
@@ -22,7 +22,7 @@ public class TestCardShuffler {
 	}
 	
 	@Test
-	public void testEveryCardInResult() {
+	public void testShuffle_EveryCardInResult() {
 		String[] result = CardShuffler.shuffle(cards);
 		int x = 0;
 		for (String card : cards) {
@@ -34,5 +34,4 @@ public class TestCardShuffler {
 		}
 		assertEquals(x, 52);
 	}
-
 }

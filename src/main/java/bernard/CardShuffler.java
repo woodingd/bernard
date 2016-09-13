@@ -1,9 +1,16 @@
 package bernard;
 
+import java.sql.Connection;
 import java.util.Random;
-import java.sql.*;
 
 public class CardShuffler extends Thread {
+	
+	private Connection connection;
+	private static SQLConnector sqlconnector = new SQLConnector();
+	
+	public CardShuffler(Connection connection) {
+		this.connection = connection;
+	}
 	
 	private static final String[] CARDS = {"K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2", "A"};
 	private static final char[] SUITS = {'S', 'C', 'D', 'H'};
@@ -43,26 +50,23 @@ public class CardShuffler extends Thread {
 	}
 	
 	public static void main(String[] args) {
-		Thread shuffle1 = new CardShuffler();
-		Thread shuffle2 = new CardShuffler();
-		Thread shuffle3 = new CardShuffler();
+		
+		sqlconnector.createTable(sqlconnector.createConnection());
+		
+		Connection conn = sqlconnector.createConnection();
+		
+		Thread shuffle1 = new CardShuffler(conn);
+		Thread shuffle2 = new CardShuffler(conn);
 		
 		shuffle1.start();
 		shuffle2.start();
-		shuffle3.start();
 	}
 	
 	public void run() {
 		System.out.println(this.getName() + ": Started.");
-		int count = 0;
 		while (true) {
-			count++;
-			String[] cards = setupCards();
-			String s = "| ";
-			for (String card : shuffle(cards)) {
-				s += card + " | ";
-			}
-			System.out.println(this.getName() + "-" + count + ": " + s);
+			String[] cards = shuffle(setupCards());
+			sqlconnector.insertPermutation(this.connection, cards);
 		}
 	}
 
