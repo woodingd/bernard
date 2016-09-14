@@ -1,4 +1,4 @@
-# bernard
+# shuffler
 
 There are **52!** different permutations of a deck of cards.
 
