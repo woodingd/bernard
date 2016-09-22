@@ -1,14 +1,12 @@
 package bernard;
 
 import static org.junit.Assert.*;
-
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
 public class TestCardShuffler {
 	
-	List<String> cards;
+	String[] cards;
 
 	@Before
 	public void setUp() throws Exception {
@@ -16,7 +14,7 @@ public class TestCardShuffler {
 	}
 
 	@Test
-	public void testNoNullsInResult() {
+	public void testShuffle_NoNullsInResult() {
 		String[] result = CardShuffler.shuffle(cards);
 		for (String card : result) {
 			assertNotEquals(card, null);
@@ -24,7 +22,7 @@ public class TestCardShuffler {
 	}
 	
 	@Test
-	public void testEveryCardInResult() {
+	public void testShuffle_EveryCardInResult() {
 		String[] result = CardShuffler.shuffle(cards);
 		int x = 0;
 		for (String card : cards) {
@@ -36,5 +34,4 @@ public class TestCardShuffler {
 		}
 		assertEquals(x, 52);
 	}
-
 }
