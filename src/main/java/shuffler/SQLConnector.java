@@ -1,4 +1,4 @@
-package bernard;
+package shuffler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -56,5 +56,4 @@ public class SQLConnector {
 			System.exit(0);
 		}
 	}
-
 }
