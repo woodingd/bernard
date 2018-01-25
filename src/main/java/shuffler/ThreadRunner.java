@@ -1,20 +1,17 @@
 package shuffler;
 
-import java.sql.Connection;
-
 public class ThreadRunner {
-	
-	private static SQLConnector sqlConnector = new SQLConnector();
 
-	public static void main(String[] args) {
-		
-		Connection conn = sqlConnector.createConnection();
-		
-		Thread shuffle1 = new CardShuffler(conn);
-		Thread shuffle2 = new CardShuffler(conn);
-		
-		shuffle1.start();
-		shuffle2.start();
+    private static final SQLConnector SQL_CONNECTOR = new SQLConnector();
 
-	}
+    public static void main(String[] args) {
+        SQL_CONNECTOR.createConnection();
+        SQL_CONNECTOR.createTable();
+
+        Thread shuffle1 = new CardShuffler(SQL_CONNECTOR);
+        Thread shuffle2 = new CardShuffler(SQL_CONNECTOR);
+
+        shuffle1.start();
+        shuffle2.start();
+    }
 }
